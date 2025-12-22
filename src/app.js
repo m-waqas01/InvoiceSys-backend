@@ -35,6 +35,37 @@ app.use("/api/reports", reportRoutes);
 
 app.get("/", (req, res) => res.json({ message: "Invoice Management API" }));
 
+// ---------- DB HEALTH CHECK ----------
+app.get("/api/test_db", (req, res) => {
+  const state = mongoose.connection.readyState;
+
+  let status = "unknown";
+
+  switch (state) {
+    case 0:
+      status = "disconnected";
+      break;
+    case 1:
+      status = "connected";
+      break;
+    case 2:
+      status = "connecting";
+      break;
+    case 3:
+      status = "disconnecting";
+      break;
+    default:
+      status = "unknown";
+  }
+
+  res.status(200).json({
+    success: true,
+    database: status,
+    uptime: process.uptime(),
+    timestamp: new Date(),
+  });
+});
+
 // Error handler
 app.use(errorHandler);
 
