@@ -9,6 +9,7 @@ const invoiceRoutes = require("./routes/invoiceRoutes");
 const paymentRoutes = require("./routes/paymentRoutes");
 const reportRoutes = require("./routes/reportRoutes");
 const errorHandler = require("./middleware/errorMiddleware");
+const mongoose = require("mongoose");
 
 const app = express();
 
@@ -35,7 +36,7 @@ app.use("/api/reports", reportRoutes);
 
 app.get("/", (req, res) => res.json({ message: "Invoice Management API" }));
 
-// ---------- DB HEALTH CHECK ----------
+// ---------- DB Status CHECK ----------
 app.get("/api/test_db", (req, res) => {
   const state = mongoose.connection.readyState;
 
