@@ -17,7 +17,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:3000",
-      "https://invoice-sys.vercel.app", // frontend URL
+      "https://invoice-sys-frontend.vercel.app/", // frontend URL
     ],
     credentials: true,
   })
