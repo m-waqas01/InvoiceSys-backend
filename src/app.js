@@ -36,6 +36,15 @@ app.use("/api/reports", reportRoutes);
 
 app.get("/", (req, res) => res.json({ message: "Invoice Management API" }));
 
+// Test DB connection route
+app.get("/api/test-db", (req, res) => {
+  const states = ["disconnected", "connected", "connecting", "disconnecting"];
+  res.json({
+    dbState: states[mongoose.connection.readyState] || "unknown",
+    timestamp: new Date().toISOString(),
+  });
+});
+
 // Error handler
 app.use(errorHandler);
 
