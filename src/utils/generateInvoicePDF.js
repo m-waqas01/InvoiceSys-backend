@@ -47,23 +47,29 @@ const generateInvoicePDF = async (
       // Table header
       doc.fontSize(10);
       doc.text("Description", 50, doc.y, { width: 250, continued: true });
-      doc.text("Qty", 300, doc.y, {
+
+      doc.text("Qty", 270, doc.y, {
         width: 50,
         continued: true,
-        align: "right",
+        align: "center",
       });
-      doc.text("Price", 350, doc.y, {
+
+      doc.text("Price", 320, doc.y, {
         width: 70,
         continued: true,
-        align: "right",
+        align: "center",
       });
-      doc.text("Tax%", 420, doc.y, {
+
+      doc.text("Tax%", 390, doc.y, {
         width: 50,
         continued: true,
+        align: "center",
+      });
+
+      doc.text("Total", 450, doc.y, {
+        width: 70,
         align: "right",
       });
-      doc.text("Total", 480, doc.y, { width: 70, align: "right" });
-      doc.moveDown();
 
       // Items
       invoice.items.forEach((item) => {
@@ -98,12 +104,10 @@ const generateInvoicePDF = async (
       // Totals
       doc.text(`Subtotal: ${invoice.subTotal.toFixed(2)}`, { align: "right" });
       doc.text(`Tax: ${invoice.taxTotal.toFixed(2)}`, { align: "right" });
-      doc
-        .fontSize(12)
-        .text(`Total: ${invoice.total.toFixed(2)}`, {
-          align: "right",
-          underline: true,
-        });
+      doc.fontSize(12).text(`Total: ${invoice.total.toFixed(2)}`, {
+        align: "right",
+        underline: true,
+      });
 
       doc.moveDown();
       if (invoice.notes) {
